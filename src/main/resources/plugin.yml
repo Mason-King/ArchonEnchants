@@ -1,0 +1,7 @@
+name: ArchonEnchants
+version: ${project.version}
+main: archonenchants.Main
+api-version: 1.13
+authors: [Mason]
+description: ArchonEnchants
+website: masonking.dev
