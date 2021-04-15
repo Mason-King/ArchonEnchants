@@ -16,6 +16,12 @@ import java.util.Random;
 
 public class AntiTank extends Enchantment {
 
+    /**
+     * AntiTank enchantment
+     * 20% chance to deal double damage when applied to armor
+     *
+     * @param key - Enchantment name
+     */
     public AntiTank(String key) {
         super(new NamespacedKey(Main.getInstance(), key));
     }
@@ -63,13 +69,10 @@ public class AntiTank extends Enchantment {
     @EventHandler
     public void antiTank(EntityDamageByEntityEvent e) {
         if(!(e.getDamager() instanceof Player) || !(e.getEntity() instanceof Player)) return;
-        Player damager = (Player) e.getDamager(), damaged = (Player) e.getEntity();
-        if(damaged.getInventory().getHelmet().containsEnchantment(this) || damaged.getInventory().getChestplate().containsEnchantment(this) || damaged.getInventory().getLeggings().containsEnchantment(this) || damaged.getInventory().getBoots().containsEnchantment(this)) {
-            Random rand = new Random();
-            int chance = rand.nextInt(100);
-            if(chance < 21) {
-                damager.setHealth(damager.getHealth() - 2);
-            }
+        Player damaged = (Player) e.getEntity();
+        for(ItemStack i : Main.getArmor(damaged)) {
+            if(!i.containsEnchantment(this) || i == null ) return;
+            if(new Random().nextInt(100) <= 20 * i.getEnchantmentLevel(this)) e.setDamage(e.getDamage() * 2);
         }
     }
 

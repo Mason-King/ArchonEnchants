@@ -15,6 +15,13 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.List;
 
 public class Beast extends Enchantment implements Listener {
+
+    /**
+     * Beast enchantment
+     * Applies strength 2 when applied to all 4 peices of armor
+     *
+     * @param key - Enchantment name
+     */
     public Beast(String key) {
         super(new NamespacedKey(Main.getInstance(), key));
     }
@@ -62,11 +69,11 @@ public class Beast extends Enchantment implements Listener {
     @EventHandler
     public void onClose(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
-        ItemStack helmet = p.getInventory().getHelmet(), chestplate = p.getInventory().getChestplate(), leggings = p.getInventory().getLeggings(), boots = p.getInventory().getBoots();
-        if(helmet.containsEnchantment(this) && chestplate.containsEnchantment(this) && leggings.containsEnchantment(this) && boots.containsEnchantment(this)) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.HARM, Integer.MAX_VALUE, 1));
+        ItemStack[] armor = Main.getArmor(p);
+        if(armor[0].containsEnchantment(this) && armor[1].containsEnchantment(this) && armor[2].containsEnchantment(this) && armor[3].containsEnchantment(this)) {
+            p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 2));
         } else {
-            p.removePotionEffect(PotionEffectType.HARM);
+            p.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
         }
 
 

@@ -1,0 +1,7 @@
+name: ArchonEnchants
+version: 1.0-SNAPSHOT
+main: archonenchants.Main
+api-version: 1.13
+authors: [Mason]
+description: ArchonEnchants
+website: masonking.dev
