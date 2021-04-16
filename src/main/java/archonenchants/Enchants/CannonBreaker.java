@@ -1,6 +1,7 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
@@ -9,6 +10,7 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -57,10 +59,13 @@ public class CannonBreaker extends Enchantment implements Listener {
     public void cannonbreaker(PlayerInteractEvent e) {
         Player p = (Player) e.getPlayer();
         ItemStack i = p.getInventory().getItemInMainHand();
-        if(!i.containsEnchantment(this)) return;
-        Block b = e.getBlock();
-        if(b.getType().equals(Material.DISPENSER)) {
-
+        if(!i.containsEnchantment(this) || !e.getAction().equals(Action.LEFT_CLICK_BLOCK)) return;
+        Block b = e.getClickedBlock();
+        if(b.getType().equals(Material.DISPENSER) || b.getType().equals(Material.PISTON) || b.getType().equals(Material.GLOWSTONE) || b.getType().name().endsWith("carpet")) {
+            e.setCancelled(true);
+            Location l = b.getLocation();
+            l.getWorld().dropItemNaturally(l, new ItemStack(b.getType()));
+            b.setType(Material.AIR);
         }
     }
 
