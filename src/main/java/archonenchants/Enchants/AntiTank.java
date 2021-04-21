@@ -8,13 +8,14 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
 
 
-public class AntiTank extends Enchantment {
+public class AntiTank extends Enchantment implements Listener {
 
     /**
      * AntiTank enchantment
