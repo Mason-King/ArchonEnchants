@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Tank extends Enchantment implements Listener {
@@ -57,10 +58,29 @@ public class Tank extends Enchantment implements Listener {
         return false;
     }
 
+    private HashMap<Player, Integer> combos = new HashMap<>();
+
     @EventHandler
     public void tank(EntityDamageByEntityEvent e){
         if(!(e.getDamager() instanceof Player)) return;
         Player p = (Player) e.getDamager();
-        
+        Player damaged = (Player) e.getEntity();
+        int i = 0;
+        for(ItemStack it : Main.getArmor(p)) {
+            if(it.containsEnchantment(this)) {
+                i++;
+            }
+        }
+        if(i >=2 ) {
+            if(combos.containsKey(damaged)) {
+                combos.remove(damaged);
+            }
+            if(!combos.containsKey(p)) {
+                combos.put(p, 1);
+            } else {
+                int num = combos.get(p) + 1;
+                combos.replace(p, num);
+            }
+        }
     }
 }
