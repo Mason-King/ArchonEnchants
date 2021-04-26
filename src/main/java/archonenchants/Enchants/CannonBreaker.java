@@ -25,6 +25,10 @@ public class CannonBreaker extends Enchantment implements Listener {
         return "Cannon Breaker";
     }
 
+    public String getDescription() {
+        return "Instantly break dispensers, pistons, glowstone, and carpets";
+    }
+
     @Override
     public int getMaxLevel() {
         return 1;

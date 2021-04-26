@@ -31,6 +31,10 @@ public class Beast extends Enchantment implements Listener {
         return "Beast";
     }
 
+    public String getDescription() {
+        return "Unlimited strength when applied to all 4 pieces of armor";
+    }
+
     @Override
     public int getMaxLevel() {
         return 3;

@@ -6,12 +6,13 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class Blaze extends Enchantment {
+public class Blaze extends Enchantment implements Listener {
     public Blaze(String key) {
         super(new NamespacedKey(Main.getInstance(), key));
     }
@@ -19,6 +20,10 @@ public class Blaze extends Enchantment {
     @Override
     public String getName() {
         return "Blaze";
+    }
+
+    public String getDescription() {
+        return "Unlimited fire resistance";
     }
 
     @Override

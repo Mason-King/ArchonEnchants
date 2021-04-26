@@ -25,6 +25,10 @@ public class Berserk extends Enchantment implements Listener {
         return "Berserk";
     }
 
+    public String getDescription() {
+        return "Chance to gain strength III when you're low on health";
+    }
+
     @Override
     public int getMaxLevel() {
         return 3;

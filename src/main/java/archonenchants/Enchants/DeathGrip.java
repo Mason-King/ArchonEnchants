@@ -24,6 +24,10 @@ public class DeathGrip extends Enchantment implements Listener {
         return "Death Grip";
     }
 
+    public String getDescription() {
+        return "Keep your sword after death";
+    }
+
     @Override
     public int getMaxLevel() {
         return 2;
