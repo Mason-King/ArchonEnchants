@@ -67,6 +67,7 @@ public class Scoot extends Enchantment implements Listener {
 
         if (checkIfBoots(e.getNewArmorPiece())) {
             if(e.getNewArmorPiece().containsEnchantment(this)) {
+                System.out.println(p.getInventory().getBoots().getEnchantmentLevel(this));
                 p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, p.getInventory().getBoots().getEnchantmentLevel(this)));
             }
         }

@@ -1,0 +1,84 @@
+title: "&8Enchantment Info"
+size: 45
+
+items:
+  1:
+    material: ENCHANTED_BOOK
+    name: "&eAntiTank"
+    lore:
+      - "&7Comparable to thorns, but"
+      - "&7doesn't take away durability"
+      - ""
+      - "&fMax level: &b2"
+      - "&fApplicable to:"
+      - "&b Leggings"
+      - "&b Chestplates"
+      - "&b Boots"
+      - "&b Helmets"
+  2:
+    material: ENCHANTED_BOOK
+    name: "&eBeast"
+    lore:
+      - "&7Infinite strength when"
+      - "&7applied to all 4 pieces"
+      - "&7of your armor"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Leggings"
+      - "&b Chestplates"
+      - "&b Boots"
+      - "&b Helmets"
+  3:
+    material: ENCHANTED_BOOK
+    name: "&eBerserk"
+    lore:
+      - "&7Chance to gain Strength III"
+      - "&7when you're low on health"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Leggings"
+      - "&b Chestplates"
+      - "&b Boots"
+      - "&b Helmets"
+  4:
+    material: ENCHANTED_BOOK
+    name: "&eBlaze"
+    lore:
+      - "&7Infinite fire resistance"
+      - ""
+      - "&fMax level: &b1"
+      - "&fApplicable to:"
+      - "&b Chestplates"
+  5:
+    material: ENCHANTED_BOOK
+    name: "&eCannon Breaker"
+    lore:
+      - "&7Instantly break dispensers,"
+      - "&7pistons, carpets and glowstone"
+      - ""
+      - "&fMax level: &b1"
+      - "&fApplicable to:"
+      - "&b Pickaxes"
+  6:
+    material: ENCHANTED_BOOK
+    name: "&eDeath Grip"
+    lore:
+      - "&7Keep your sword after death"
+      - ""
+      - "&fMax level: &b2"
+      - "&fApplicable to:"
+      - "&b Swords"
+  7:
+    material: ENCHANTED_BOOK
+    name: "&eDecay"
+    lore:
+      - "&7Deals increased armor damage to enemies"
+      - ""
+      - "&fMax level: &b2"
+      - "&fApplicable to:"
+      - "&b Leggings"
+      - "&b Chestplates"
+      - "&b Boots"
+      - "&b Helmets"

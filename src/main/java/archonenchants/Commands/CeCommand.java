@@ -1,6 +1,7 @@
 package archonenchants.Commands;
 
 import archonenchants.Main;
+import archonenchants.Roman;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -28,10 +29,9 @@ public class CeCommand implements CommandExecutor {
             } else {
                 String enchant = args[1];
                 int level = Integer.valueOf(args[2]);
-                System.out.println(main.getCustomenchants());
                 for(Enchantment e : main.getCustomenchants()) {
                     if(e.getName().equalsIgnoreCase(enchant) && e.getName() != null) {
-                       p.getInventory().addItem(addBookEnchantment(new ItemStack(Material.ENCHANTED_BOOK), e, level));
+                       p.getInventory().addItem(enchantBook(e, level));
                     }
                 }
             }
@@ -39,15 +39,41 @@ public class CeCommand implements CommandExecutor {
             String enchant = args[1];
             int level = Integer.valueOf(args[2]);
             for(Enchantment e : main.getCustomenchants()) {
-                System.out.println(e.getName());
-                System.out.println(enchant + " args");
                 if(e.getName().equalsIgnoreCase(enchant) && e.getName() != null) {
-                    System.out.println(e.getItemTarget().includes(p.getInventory().getItemInMainHand().getType()));
-                    p.getInventory().getItemInMainHand().addUnsafeEnchantment(e, level);
+                    enchantItem(p.getInventory().getItemInMainHand(), e, level);
                 }
             }
         }
         return false;
+    }
+
+    public ItemStack enchantBook(Enchantment e, int level) {
+        ItemStack i = new ItemStack(Material.matchMaterial(main.getConfig().getString("enchantmentBookMaterial")));
+        ItemMeta im = i.getItemMeta();
+        i.addUnsafeEnchantment(e, level);
+        List<String> lore = new ArrayList<>();
+        for(String s : main.getConfig().getStringList("enchantedBookLore")) {
+            lore.add(chat(s));
+        }
+        im.setLore(lore);
+        im.setDisplayName(chat(main.getConfig().getString("enchantmentBookName").replace("{name}", e.getName()).replace("{level}", Roman.toRoman(level))));
+        i.setItemMeta(im);
+        return i;
+    }
+
+    public void enchantItem(ItemStack is, Enchantment e, int level) {
+        String roman = Roman.toRoman(level);
+        is.addUnsafeEnchantment(e, level);
+        ItemMeta im = is.getItemMeta();
+        List<String> lore = null;
+        if(im.getLore() == null) {
+            lore = new ArrayList<>();
+        } else {
+            lore = im.getLore();
+        }
+        lore.add(chat("&7" + e.getName() + " " + roman));
+        im.setLore(lore);
+        is.setItemMeta(im);
     }
 
     public ItemStack addBookEnchantment(ItemStack item, Enchantment enchantment, int level){
