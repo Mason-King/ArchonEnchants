@@ -14,22 +14,22 @@ public class Infusion extends Enchantment implements Listener {
 
     @Override
     public String getName() {
-        return null;
+        return "Infusion";
     }
 
     @Override
     public int getMaxLevel() {
-        return 0;
+        return 2;
     }
 
     @Override
     public int getStartLevel() {
-        return 0;
+        return 1;
     }
 
     @Override
     public EnchantmentTarget getItemTarget() {
-        return null;
+        return EnchantmentTarget.TOOL;
     }
 
     @Override

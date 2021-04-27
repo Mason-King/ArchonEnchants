@@ -5,3 +5,5 @@ api-version: 1.13
 authors: [Mason]
 description: ArchonEnchants
 website: masonking.dev
+commands:
+  ce:

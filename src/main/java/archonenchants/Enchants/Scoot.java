@@ -60,9 +60,12 @@ public class Scoot extends Enchantment implements Listener {
     @EventHandler
     public void scoot(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
+        System.out.println("1");
         if(p.getInventory().getBoots().containsEnchantment(this)) {
+            System.out.println("2");
             p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, p.getInventory().getBoots().getEnchantmentLevel(this)));
         } else {
+            System.out.println("3");
             p.removePotionEffect(PotionEffectType.SPEED);
         }
     }

@@ -61,6 +61,7 @@ public class Feast extends Enchantment implements Listener {
     public void feast(FoodLevelChangeEvent e) {
         Player p = (Player) e.getEntity();
         for(ItemStack s : Main.getArmor(p)) {
+            if(s == null) continue;
             if(s.containsEnchantment(this)) {
                 e.setCancelled(true);
             }

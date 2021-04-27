@@ -61,6 +61,7 @@ public class Hercules extends Enchantment implements Listener {
 
     @EventHandler
     public void hercules(EntityDamageByEntityEvent e) {
+        if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)) return;
         Player p = (Player) e.getDamager();
         if (p.getInventory().getItemInMainHand().containsEnchantment(this)) {
             if(new Random().nextInt(100) < 20 * p.getInventory().getItemInMainHand().getEnchantmentLevel(this)) {

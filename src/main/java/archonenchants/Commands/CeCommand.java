@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
@@ -22,28 +23,38 @@ public class CeCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player p = (Player) sender;
         if(args[0].equalsIgnoreCase("give")) {
-            if(args.length < 2) {
+            if(args.length < 3) {
                 p.sendMessage(chat("&c&lArchonEnchants &7| Invalid Enchantment"));
             } else {
                 String enchant = args[1];
                 int level = Integer.valueOf(args[2]);
+                System.out.println(main.getCustomenchants());
                 for(Enchantment e : main.getCustomenchants()) {
-                    if(e.getName().equalsIgnoreCase(enchant)) {
-                       p.getInventory().addItem(createBook(e, level));
+                    if(e.getName().equalsIgnoreCase(enchant) && e.getName() != null) {
+                       p.getInventory().addItem(addBookEnchantment(new ItemStack(Material.ENCHANTED_BOOK), e, level));
                     }
+                }
+            }
+        } else if(args[0].equalsIgnoreCase("enchant")) {
+            String enchant = args[1];
+            int level = Integer.valueOf(args[2]);
+            for(Enchantment e : main.getCustomenchants()) {
+                System.out.println(e.getName());
+                System.out.println(enchant + " args");
+                if(e.getName().equalsIgnoreCase(enchant) && e.getName() != null) {
+                    System.out.println(e.getItemTarget().includes(p.getInventory().getItemInMainHand().getType()));
+                    p.getInventory().getItemInMainHand().addUnsafeEnchantment(e, level);
                 }
             }
         }
         return false;
     }
 
-    private ItemStack createBook(Enchantment E, int level) {
-        ItemStack i = new ItemStack(Material.BOOK);
-        ItemMeta im = i.getItemMeta();
-        im.addEnchant(E, level, false);
-        im.setDisplayName(chat("&c&l" + E.getName()));
-        i.setItemMeta(im);
-        return i;
+    public ItemStack addBookEnchantment(ItemStack item, Enchantment enchantment, int level){
+        EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+        meta.addStoredEnchant(enchantment, level, true);
+        item.setItemMeta(meta);
+        return item;
     }
 
     private String chat(String s) {

@@ -62,7 +62,7 @@ public class Tank extends Enchantment implements Listener {
 
     @EventHandler
     public void tank(EntityDamageByEntityEvent e){
-        if(!(e.getDamager() instanceof Player)) return;
+        if(!(e.getDamager() instanceof Player) || !(e.getEntity() instanceof  Player)) return;
         Player p = (Player) e.getDamager();
         Player damaged = (Player) e.getEntity();
         int i = 0;

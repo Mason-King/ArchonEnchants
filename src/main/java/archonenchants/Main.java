@@ -1,5 +1,6 @@
 package archonenchants;
 
+import archonenchants.Commands.CeCommand;
 import archonenchants.Enchants.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Mob;
@@ -19,12 +20,15 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        this.getCommand("ce").setExecutor(new CeCommand());
+
         AntiTank antiTank = new AntiTank("AntiTank");
         Beast beast = new Beast("Beast");
         Berserk berserk = new Berserk("Berserk");
         Blaze blaze = new Blaze("Blaze");
-        CannonBreaker cannonBreaker = new CannonBreaker("Cannon Breaker");
-        DeathGrip deathGrip = new DeathGrip("Death Grip");
+        CannonBreaker cannonBreaker = new CannonBreaker("CannonBreaker");
+        DeathGrip deathGrip = new DeathGrip("DeathGrip");
         Decay decay = new Decay("Decay");
         Escape escape = new Escape("Escape");
         Feast feast = new Feast("Feast");
@@ -112,7 +116,6 @@ public final class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(turtle, this);
         this.getServer().getPluginManager().registerEvents(venom, this);
         this.getServer().getPluginManager().registerEvents(webShooter, this);
-
     }
 
     @Override
@@ -146,6 +149,7 @@ public final class Main extends JavaPlugin {
             e.printStackTrace();
         }
         if(registered){
+            System.out.println(enchantment.getName() + " has been registered.");
             custom_enchants.add(enchantment);
         }
     }

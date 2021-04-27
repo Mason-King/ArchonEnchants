@@ -62,6 +62,7 @@ public class Rampage extends Enchantment implements Listener {
 
     @EventHandler
     public void onKill(PlayerDeathEvent e) {
+        if(!(e.getEntity() instanceof Player) || !(e.getEntity().getKiller() instanceof  Player)) return;
         Player p = e.getEntity();
         Player killer = p.getKiller();
         if(killer.getInventory().getItemInMainHand().containsEnchantment(this)) {

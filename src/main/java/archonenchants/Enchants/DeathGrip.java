@@ -70,7 +70,7 @@ public class DeathGrip extends Enchantment implements Listener {
         Player p = (Player) e.getEntity();
         ItemStack[] inv = p.getInventory().getContents();
         for(ItemStack is : inv) {
-            if(is.getType().name().endsWith("sword")) {
+            if(is.getType().name().endsWith("_SWORD")) {
                 if(is.containsEnchantment(this)) {
                     e.getDrops().remove(is);
                     items.put(p, is);
