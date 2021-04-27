@@ -1,6 +1,8 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
+import com.codingforcookies.armorequip.ArmorEquipEvent;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -57,11 +59,24 @@ public class Scoot extends Enchantment implements Listener {
         return false;
     }
 
+
+    @EventHandler
+    public void onEquip(ArmorEquipEvent e) {
+
+        Player p = e.getPlayer();
+
+        if (checkIfBoots(e.getNewArmorPiece())) {
+            if(e.getNewArmorPiece().containsEnchantment(this)) {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, p.getInventory().getBoots().getEnchantmentLevel(this)));
+            }
+        }
+    }
+
     @EventHandler
     public void scoot(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
         System.out.println("1");
-        if(p.getInventory().getBoots().containsEnchantment(this)) {
+        if (p.getInventory().getBoots().containsEnchantment(this)) {
             System.out.println("2");
             p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, p.getInventory().getBoots().getEnchantmentLevel(this)));
         } else {
@@ -70,4 +85,22 @@ public class Scoot extends Enchantment implements Listener {
         }
     }
 
+    public static boolean checkIfBoots(ItemStack i) {
+        if(i.getType() == Material.LEATHER_BOOTS) {
+            return true;
+        }
+        if(i.getType() == Material.IRON_BOOTS) {
+            return true;
+        }
+        if(i.getType() == Material.IRON_BOOTS) {
+            return true;
+        }
+        if(i.getType() == Material.DIAMOND_BOOTS) {
+            return true;
+        }
+        return false;
+    }
+
 }
+
+
