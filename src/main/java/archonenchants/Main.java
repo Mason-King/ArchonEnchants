@@ -117,7 +117,6 @@ public final class Main extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(turtle, this);
         this.getServer().getPluginManager().registerEvents(venom, this);
         this.getServer().getPluginManager().registerEvents(webShooter, this);
-        this.getServer().getPluginManager().registerEvents(new ApplyListener(), this);
         saveDefaultConfig();
 
     }

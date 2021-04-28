@@ -1,4 +1,4 @@
-enchantmentBookMaterial: ENCHANTED_BOOK
+enchantmentBookMaterial: BOOK
 enchantmentBookLore:
   - "&7&o((Drag and Drop onto item to apply))"
 enchantmentBookName: "&c&l{name} {level}"
