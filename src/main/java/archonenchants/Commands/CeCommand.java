@@ -31,7 +31,7 @@ public class CeCommand implements CommandExecutor {
                 int level = Integer.valueOf(args[2]);
                 for(Enchantment e : main.getCustomenchants()) {
                     if(e.getName().equalsIgnoreCase(enchant) && e.getName() != null) {
-                       p.getInventory().addItem(enchantBook(e, level));
+                       p.getInventory().addItem(enchantBook(new ItemStack(Material.matchMaterial(main.getConfig().getString("enchantmentBookMaterial"))), e, level));
                     }
                 }
             }
@@ -47,18 +47,21 @@ public class CeCommand implements CommandExecutor {
         return false;
     }
 
-    public ItemStack enchantBook(Enchantment e, int level) {
-        ItemStack i = new ItemStack(Material.matchMaterial(main.getConfig().getString("enchantmentBookMaterial")));
-        ItemMeta im = i.getItemMeta();
-        i.addUnsafeEnchantment(e, level);
-        List<String> lore = new ArrayList<>();
-        for(String s : main.getConfig().getStringList("enchantedBookLore")) {
-            lore.add(chat(s));
+    public ItemStack enchantBook(ItemStack is, Enchantment e, int level) {
+        String roman = Roman.toRoman(level);
+        is.addUnsafeEnchantment(e, level);
+        ItemMeta im = is.getItemMeta();
+        List<String> lore = null;
+        if(im.getLore() == null) {
+            lore = new ArrayList<>();
+        } else {
+            lore = im.getLore();
         }
+        lore.add(chat("&7" + e.getName() + " " + roman));
+        im.setDisplayName(chat(main.getConfig().getString("enchantmentBookName").replace("{name}", e.getName()).replace("{level}", roman)));
         im.setLore(lore);
-        im.setDisplayName(chat(main.getConfig().getString("enchantmentBookName").replace("{name}", e.getName()).replace("{level}", Roman.toRoman(level))));
-        i.setItemMeta(im);
-        return i;
+        is.setItemMeta(im);
+        return is;
     }
 
     public void enchantItem(ItemStack is, Enchantment e, int level) {
@@ -74,13 +77,6 @@ public class CeCommand implements CommandExecutor {
         lore.add(chat("&7" + e.getName() + " " + roman));
         im.setLore(lore);
         is.setItemMeta(im);
-    }
-
-    public ItemStack addBookEnchantment(ItemStack item, Enchantment enchantment, int level){
-        EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-        meta.addStoredEnchant(enchantment, level, true);
-        item.setItemMeta(meta);
-        return item;
     }
 
     private String chat(String s) {
