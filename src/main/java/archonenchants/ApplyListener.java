@@ -30,32 +30,12 @@ public class ApplyListener implements Listener {
         for(Enchantment ench : enchants) {
             for(Map.Entry entry : book.getEnchantments().entrySet()) {
                 if(ench.equals(entry.getKey())) {
-                        if(tooEnchant.containsEnchantment(ench)) {
-                            if(tooEnchant.getEnchantmentLevel(ench) > (Integer) entry.getValue()) {
-                                System.out.println("higher");
-                                return;
-                            } else if(tooEnchant.getEnchantmentLevel(ench) < (Integer) entry.getValue()) {
-                                System.out.println("lower");
-                                tooEnchant.removeEnchantment(ench);
-                                enchantItem(tooEnchant, ench, (Integer) entry.getValue());
-                                e.setCancelled(true);
-                                p.setItemOnCursor(new ItemStack(Material.AIR));
-                                book.setType(Material.AIR);
-                            } else {
-                                System.out.println("equal");
-                                tooEnchant.removeEnchantment(ench);
-                                enchantItem(tooEnchant, ench, (Integer) entry.getValue() + 1);
-                                e.setCancelled(true);
-                                p.setItemOnCursor(new ItemStack(Material.AIR));
-                                book.setType(Material.AIR);
-                            }
-                        } else {
-                            enchantItem(tooEnchant, ench, (Integer) entry.getValue());
-                            e.setCancelled(true);
-                            p.setItemOnCursor(new ItemStack(Material.AIR));
-                            book.setType(Material.AIR);
-                        }
-                        return;
+                    if(tooEnchant.containsEnchantment(ench)) return;
+                    enchantItem(tooEnchant, ench, (Integer) entry.getValue() + 1);
+                    e.setCancelled(true);
+                    p.setItemOnCursor(new ItemStack(Material.AIR));
+                    book.setType(Material.AIR);
+                    return;
                 }
             }
         }
