@@ -3,7 +3,6 @@ package archonenchants.Enchants;
 import archonenchants.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -17,13 +16,13 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Locale;
 
 public class IceBreaker extends Enchantment implements Listener {
-    public IceBreaker(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    public IceBreaker(int key) {
+        super(key);
     }
 
     @Override
     public String getName() {
-        return "Ice Breaker";
+        return "IceBreaker";
     }
 
     @Override
@@ -42,34 +41,28 @@ public class IceBreaker extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("PICKAXE")) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
     @EventHandler
     public void iceBreaker(PlayerInteractEvent e) {
         Player p = (Player) e.getPlayer();
-        if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+        if(e.getAction().equals(Action.LEFT_CLICK_BLOCK) && Main.hasEnchantment(p.getInventory().getItemInHand(), this)) {
             Block b = e.getClickedBlock();
             if(b.getType().equals(Material.ICE)) {
                 e.setCancelled(true);
                 Location loc = b.getLocation();
                 loc.getWorld().dropItemNaturally(loc, new ItemStack(b.getType()));
+                loc.getBlock().setType(Material.AIR);
             }
         }
     }

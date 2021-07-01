@@ -1,0 +1,58 @@
+format:
+  - "# # # # # # # # #"
+  - "# # $ # ^ # * # #"
+  - "# # # # # # # # #"
+  - "# # # # @ # # # #"
+  - "# # # # # # # # #"
+
+title: "&8Purchase Enchants"
+size: 45
+
+one: 11
+two: 13
+three: 15
+close: 31
+
+items:
+  "#":
+    material: STAINED_GLASS_PANE
+    data: 15
+    name: ""
+    lore: ""
+  "$":
+    material: BOOK
+    name: "&9Tier 1"
+    lore:
+      - "&7Purchase a random &9Tier 1"
+      - "&fcustom enchantment for the"
+      - "&fcost of &c15 Levels"
+      - "&f          &c(315 EXP)"
+      - ""
+      - "&7Right-click to fill your"
+      - "&7inventory with this book type"
+  "^":
+    material: BOOK
+    name: "&3Tier 2"
+    lore:
+      - "&7Purchase a random &3Tier 2"
+      - "&fcustom enchantment for the"
+      - "&fcost of &c30 Levels"
+      - "&f          &c(1,395 EXP)"
+      - ""
+      - "&7Right-click to fill your"
+      - "&7inventory with this book type"
+  "*":
+    material: ENCHANTED_BOOK
+    name: "&3Tier 3"
+    lore:
+      - "&7Purchase a random &3Tier 2"
+      - "&fcustom enchantment for the"
+      - "&fcost of &c45 Levels"
+      - "&f          &c(4020 EXP)"
+      - ""
+      - "&7Right-click to fill your"
+      - "&7inventory with this book type"
+  "@":
+    material: BARRIER
+    name: "&cReturn to Main Menu"
+    lore: ""

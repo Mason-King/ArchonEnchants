@@ -1,10 +1,9 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="ArchonEnchants">
-    <output-path>$USER_HOME$/Desktop/Minecraft related/Servers/Corporations/plugins</output-path>
+    <output-path>$USER_HOME$/Desktop/Minecraft related/Servers/Sky Surge/plugins</output-path>
     <root id="archive" name="ArchonEnchants.jar">
       <element id="module-output" name="ArchonEnchants" />
       <element id="library" level="module" name="Maven: ArmorEquipEvent:ArmorEquip:1.0" module-name="ArchonEnchants" />
-      <element id="library" level="project" name="SuperMobCoins_1" />
     </root>
   </artifact>
 </component>

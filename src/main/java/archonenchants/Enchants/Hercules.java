@@ -1,7 +1,6 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -15,13 +14,16 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Random;
 
 public class Hercules extends Enchantment implements Listener {
-    public Hercules(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+
+    //Completed
+
+    public Hercules(int key) {
+        super(key);
     }
 
     @Override
     public String getName() {
-        return "Hurcules";
+        return "Hercules";
     }
 
     @Override
@@ -40,35 +42,27 @@ public class Hercules extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("AXE")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @EventHandler
     public void hercules(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)) return;
         Player p = (Player) e.getDamager();
-        if (p.getInventory().getItemInMainHand().containsEnchantment(this)) {
-            if(new Random().nextInt(100) < 20 * p.getInventory().getItemInMainHand().getEnchantmentLevel(this)) {
-                p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 5, p.getInventory().getItemInMainHand().getEnchantmentLevel(this)));
+        if (Main.hasEnchantment(p.getInventory().getItemInHand(), this)) {
+            if(new Random().nextInt(100) < 20 * Main.getLevel(p.getInventory().getItemInHand(), this)) {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, Main.getLevel(p.getInventory().getItemInHand(), this)));
             }
-        } else {
-            return;
         }
     }
 

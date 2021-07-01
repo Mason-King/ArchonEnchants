@@ -2,7 +2,6 @@ package archonenchants.Enchants;
 
 import archonenchants.Main;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -18,13 +17,13 @@ import javax.naming.Name;
 import java.util.List;
 
 public class ObsidianDestroyer extends Enchantment implements Listener {
-    public ObsidianDestroyer(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    public ObsidianDestroyer(int key) {
+        super(key);
     }
 
     @Override
     public String getName() {
-        return "Obsidian Destroyer";
+        return "ObsidianDestroyer";
     }
 
     @Override
@@ -43,29 +42,23 @@ public class ObsidianDestroyer extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("PICKAXE")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @EventHandler
     public void onBreak(BlockDamageEvent e) {
         Player p = (Player) e.getPlayer();
-        if(p.getInventory().getItemInMainHand().containsEnchantment(this)) {
+        if(Main.hasEnchantment(p.getInventory().getItemInHand(), this) && e.getBlock().getType().equals(Material.OBSIDIAN)) {
             e.setInstaBreak(true);
         }
     }

@@ -1,7 +1,6 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -16,8 +15,10 @@ import javax.naming.Name;
 import java.util.Random;
 
 public class Berserk extends Enchantment implements Listener {
-    public Berserk(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    //completed
+
+    public Berserk(int key) {
+        super(key);
     }
 
     @Override
@@ -45,23 +46,16 @@ public class Berserk extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("HELMET") || item.getType().toString().endsWith("CHESTPLATE") || item.getType().toString().endsWith("LEGGINGS") || item.getType().toString().endsWith("BOOTS")) {            return true;
+        } else {
+            return false;
+        }
     }
 
     @EventHandler
@@ -69,11 +63,9 @@ public class Berserk extends Enchantment implements Listener {
         if(!(e.getDamager() instanceof Player) || !(e.getEntity() instanceof Player)) return;
         Player damaged = (Player) e.getEntity();
         for(ItemStack i : Main.getArmor(damaged)) {
-            if(!i.containsEnchantment(this) || i == null ) return;
-            if(damaged.getHealth() < 6) {
-                damaged.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 2));
-            } else {
-                damaged.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+            if(i == null || !Main.hasEnchantment(i, this)) continue;
+            if(damaged.getHealth() < 6 && new Random().nextInt(100) <= 20 * Main.getLevel(i, this)) {
+                damaged.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 300, 2));
             }
         }
     }

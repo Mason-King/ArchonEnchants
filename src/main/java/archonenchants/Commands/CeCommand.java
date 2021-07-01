@@ -27,6 +27,7 @@ public class CeCommand implements CommandExecutor {
         Player p = (Player) sender;
         if(args.length == 0) {
             ceGui.gui().show(p);
+            return false;
         }
         if(args[0].equalsIgnoreCase("give")) {
             if(args.length < 3) {
@@ -45,7 +46,7 @@ public class CeCommand implements CommandExecutor {
             int level = Integer.valueOf(args[2]);
             for(Enchantment e : main.getCustomenchants()) {
                 if(e.getName().equalsIgnoreCase(enchant) && e.getName() != null) {
-                    enchantItem(p.getInventory().getItemInMainHand(), e, level);
+                    enchantItem(p.getInventory().getItemInHand(), e, level);
                 }
             }
         }
@@ -62,7 +63,7 @@ public class CeCommand implements CommandExecutor {
         } else {
             lore = im.getLore();
         }
-        lore.add(chat("&7" + e.getName() + " " + roman));
+        lore.add(chat("&7Drag n' Drop onto item to enchant."));
         im.setDisplayName(chat(main.getConfig().getString("enchantmentBookName").replace("{name}", e.getName()).replace("{level}", roman)));
         im.setLore(lore);
         is.setItemMeta(im);

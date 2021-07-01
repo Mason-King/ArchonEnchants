@@ -1,28 +1,30 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.Random;
 
 public class HeadShot extends Enchantment implements Listener {
 
+//Done
 
-    public HeadShot(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    public HeadShot(int key) {
+        super(key);
     }
 
     @Override
     public String getName() {
-        return "Head shot";
+        return "Headshot";
     }
 
     @Override
@@ -41,34 +43,44 @@ public class HeadShot extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("BOW")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @EventHandler
+    public void getArrow(EntityShootBowEvent e) {
+        if(e.getForce() == 1.0) {
+            if(e.getProjectile() instanceof Arrow) {
+                Entity arrow = e.getProjectile();
+                e.getProjectile().setMetadata("charged", new FixedMetadataValue(Main.getInstance(), arrow));
+            }
+        }
     }
 
     @EventHandler
     public void headshot(EntityDamageByEntityEvent e) {
-        if(!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof  Player)) return;
+        if(!(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Arrow)) return;
         Player shot = (Player) e.getEntity();
-        Player shooter = (Player) e.getDamager();
-        if(e.getCause().equals(EntityDamageEvent.DamageCause.PROJECTILE)) {
-            if(shooter.getInventory().getItemInMainHand().containsEnchantment(this)) {
-                if(new Random().nextInt(100) <= 20 * shooter.getInventory().getItemInMainHand().getEnchantmentLevel(this)) {
-                    e.setDamage(4);
+        Arrow attacker = (Arrow) e.getDamager();
+        Player shooter = null;
+        if(attacker.getShooter() instanceof Player) {
+            shooter = (Player) attacker.getShooter();
+        } else {
+            return;
+        }
+        if(attacker.getMetadata("charged") != null) {
+            if(Main.hasEnchantment(shooter.getItemInHand(), this)) {
+                if(new Random().nextInt(100) <= 10 * Main.getLevel(shooter.getItemInHand(), this)) {
+                    e.setDamage(8);
                 }
             }
         }

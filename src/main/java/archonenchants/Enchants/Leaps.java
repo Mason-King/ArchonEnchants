@@ -1,7 +1,9 @@
 package archonenchants.Enchants;
 
+import archonenchants.ArmorEquipAPI.ArmorEquipEvent;
+import archonenchants.ArmorEquipAPI.ArmorType;
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -15,8 +17,8 @@ import org.bukkit.potion.PotionEffectType;
 public class Leaps extends Enchantment implements Listener {
 
 
-    public Leaps(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    public Leaps(int key) {
+        super(key);
     }
 
     @Override
@@ -40,32 +42,31 @@ public class Leaps extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("BOOTS")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @EventHandler
-    public void onClose(InventoryCloseEvent e) {
+    public void onClose(ArmorEquipEvent e) {
         Player p = (Player) e.getPlayer();
-        if(p.getInventory().getBoots().containsEnchantment(this)) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, p.getInventory().getBoots().getEnchantmentLevel(this)));
-        } else {
-            p.removePotionEffect(PotionEffectType.JUMP);
+        if(e.getNewArmorPiece() != null && e.getNewArmorPiece().getType() != Material.AIR && e.getType().equals(ArmorType.BOOTS)) {
+            if(Main.hasEnchantment(e.getNewArmorPiece(), this)) {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, Main.getLevel(e.getNewArmorPiece(), this) -1));
+            }
+        }
+        if(e.getOldArmorPiece() != null && e.getOldArmorPiece().getType() != Material.AIR && e.getType().equals(ArmorType.BOOTS)) {
+            if(Main.hasEnchantment(e.getOldArmorPiece(), this)) {
+                p.removePotionEffect(PotionEffectType.JUMP);
+            }
         }
     }
 

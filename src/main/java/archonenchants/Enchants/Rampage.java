@@ -1,7 +1,7 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -16,8 +16,9 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Random;
 
 public class Rampage extends Enchantment implements Listener {
-    public Rampage(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    //Done
+    public Rampage(int key) {
+        super(key);
     }
 
     @Override
@@ -41,23 +42,17 @@ public class Rampage extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("Swords")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @EventHandler
@@ -65,13 +60,13 @@ public class Rampage extends Enchantment implements Listener {
         if(!(e.getEntity() instanceof Player) || !(e.getEntity().getKiller() instanceof  Player)) return;
         Player p = e.getEntity();
         Player killer = p.getKiller();
-        if(killer.getInventory().getItemInMainHand().containsEnchantment(this)) {
+        if(Main.hasEnchantment(killer.getInventory().getItemInHand(), this)) {
             for(ItemStack i : Main.getArmor(p)) {
-                if(i.getType().name().startsWith("DIAMOND")) {
-                    if(new Random().nextInt(100) <= 20 * p.getInventory().getItemInMainHand().getEnchantmentLevel(this)) {
-                        killer.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 15, 3));
-                        killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 15, 3));
-                    }
+                if(i == null) continue;
+                if(i.getType().equals(Material.DIAMOND_HELMET) || i.getType().equals(Material.DIAMOND_CHESTPLATE) || i.getType().equals(Material.DIAMOND_LEGGINGS) || i.getType().equals(Material.DIAMOND_BOOTS)) {
+                    killer.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 300, 2));
+                    killer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 300, 2));
+                    return;
                 }
             }
         }

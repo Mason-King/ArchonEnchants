@@ -1,7 +1,6 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -16,8 +15,8 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Random;
 
 public class Venom extends Enchantment implements Listener {
-    public Venom(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    public Venom(int key) {
+        super(key);
     }
 
     @Override
@@ -41,23 +40,17 @@ public class Venom extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("BOW")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @EventHandler
@@ -66,9 +59,9 @@ public class Venom extends Enchantment implements Listener {
         if(e.getCause().equals(EntityDamageEvent.DamageCause.PROJECTILE)) {
             Player p = (Player) e.getDamager();
             Player damaged = (Player) e.getEntity();
-            if(p.getInventory().getItemInMainHand().containsEnchantment(this)) {
-                if(new Random().nextInt(100) <= 20 * p.getInventory().getItemInMainHand().getEnchantmentLevel(this)) {
-                    damaged.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 10, 1));
+            if(Main.hasEnchantment(p.getInventory().getItemInHand(), this)) {
+                if(new Random().nextInt(100) <= 20 * Main.getLevel(p.getInventory().getItemInHand(), this)) {
+                    damaged.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, Main.getLevel(p.getInventory().getItemInHand(), this)));
                 }
             }
         }

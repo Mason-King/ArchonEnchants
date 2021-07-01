@@ -1,7 +1,9 @@
 package archonenchants.Enchants;
 
+import archonenchants.ArmorEquipAPI.ArmorEquipEvent;
+import archonenchants.ArmorEquipAPI.ArmorType;
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -13,8 +15,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Blaze extends Enchantment implements Listener {
-    public Blaze(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    //Completed
+    public Blaze(int key) {
+        super(key);
     }
 
     @Override
@@ -42,33 +45,35 @@ public class Blaze extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("CHESTPLATE")) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
     @EventHandler
-    public void blaze(InventoryCloseEvent e) {
+    public void blaze(ArmorEquipEvent e) {
         Player p = (Player) e.getPlayer();
         ItemStack[] armor = Main.getArmor(p);
-        if(armor[1].containsEnchantment(this)) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
-        } else {
-            p.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
+        //Check if they are equiping it
+        if(e.getNewArmorPiece() != null && e.getNewArmorPiece().getType() != Material.AIR) {
+            //if they are and the item is a helmet and has the enchant we add the effect
+            if(e.getType().equals(ArmorType.HELMET) && Main.hasEnchantment(e.getNewArmorPiece(), this)) {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0));
+            }
         }
+        //Check when they remove the enchant
+        if(e.getOldArmorPiece() != null && e.getOldArmorPiece().getType() != Material.AIR) {
+            if(e.getType().equals(ArmorType.HELMET) && Main.hasEnchantment(e.getOldArmorPiece(), this)) {
+                p.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
+            }
+        }
+
     }
 }

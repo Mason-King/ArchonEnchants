@@ -1,8 +1,26 @@
+format:
+  - "! $ ^ & * ( ) _ +"
+  - "= 1 2 3 4 5 6 7 8"
+  - "9 a b c d e f g h"
+  - "i j k l # # # # # "
+  - "# # # # @ # # # #"
+
 title: "&8Enchantment Info"
 size: 45
 
+close: 40
+
 items:
-  1:
+  "@":
+    material: BARRIER
+    name: "&cReturn to Main Menu"
+    lore: ""
+  "#":
+    material: STAINED_GLASS_PANE
+    data: 15
+    name: ""
+    lore: ""
+  "!":
     material: ENCHANTED_BOOK
     name: "&eAntiTank"
     lore:
@@ -15,7 +33,7 @@ items:
       - "&b Chestplates"
       - "&b Boots"
       - "&b Helmets"
-  2:
+  "$":
     material: ENCHANTED_BOOK
     name: "&eBeast"
     lore:
@@ -29,7 +47,7 @@ items:
       - "&b Chestplates"
       - "&b Boots"
       - "&b Helmets"
-  3:
+  "^":
     material: ENCHANTED_BOOK
     name: "&eBerserk"
     lore:
@@ -42,7 +60,7 @@ items:
       - "&b Chestplates"
       - "&b Boots"
       - "&b Helmets"
-  4:
+  "&":
     material: ENCHANTED_BOOK
     name: "&eBlaze"
     lore:
@@ -51,7 +69,7 @@ items:
       - "&fMax level: &b1"
       - "&fApplicable to:"
       - "&b Chestplates"
-  5:
+  "*":
     material: ENCHANTED_BOOK
     name: "&eCannon Breaker"
     lore:
@@ -61,7 +79,7 @@ items:
       - "&fMax level: &b1"
       - "&fApplicable to:"
       - "&b Pickaxes"
-  6:
+  "(":
     material: ENCHANTED_BOOK
     name: "&eDeath Grip"
     lore:
@@ -70,7 +88,7 @@ items:
       - "&fMax level: &b2"
       - "&fApplicable to:"
       - "&b Swords"
-  7:
+  ")":
     material: ENCHANTED_BOOK
     name: "&eDecay"
     lore:
@@ -82,3 +100,254 @@ items:
       - "&b Chestplates"
       - "&b Boots"
       - "&b Helmets"
+  "_":
+    material: ENCHANTED_BOOK
+    name: "&eEscape"
+    lore:
+      - "&7Chance to gain Speed III"
+      - "&7when you're low on health"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Leggings"
+      - "&b Chestplates"
+      - "&b Boots"
+      - "&b Helmets"
+  "+":
+    material: ENCHANTED_BOOK
+    name: "&eFeast"
+    lore:
+      - "&7No hunger loss"
+      - ""
+      - "&fMax level: &b1"
+      - "&fApplicable to:"
+      - "&b Leggings"
+      - "&b Chestplates"
+      - "&b Boots"
+      - "&b Helmets"
+  "=":
+    material: ENCHANTED_BOOK
+    name: "&eFish"
+    lore:
+      - "&7Infinite water breathing"
+      - ""
+      - "&fMax level: &b1"
+      - "&fApplicable to:"
+      - "&b Helmets"
+  "1":
+    material: ENCHANTED_BOOK
+    name: "&eGrind"
+    lore:
+      - "&7Increases XP earned from"
+      - "&7killing hostile monsters"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Swords"
+  "2":
+    material: ENCHANTED_BOOK
+    name: "&eGuardian"
+    lore:
+      - "&7Chance for an Iron Golem Guardian to aid"
+      - "&7you in battle, after receiving damage"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Leggings"
+      - "&b Chestplates"
+      - "&b Boots"
+      - "&b Helmets"
+  "3":
+    material: ENCHANTED_BOOK
+    name: "&eHaste"
+    lore:
+      - "&7Increases mining speed"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Shovels"
+      - "&b Swords"
+      - "&b Axes"
+      - "&b Pickaxes"
+  "4":
+    material: ENCHANTED_BOOK
+    name: "&eHeadShot"
+    lore:
+      - "&7Chance to deal 4 hearts of"
+      - "&7damage when you hit someone"
+      - "&7with a fully charged arrow"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Bows"
+  "5":
+    material: ENCHANTED_BOOK
+    name: "&eHercules"
+    lore:
+      - "&7Chance to get Strength III"
+      - "&7when attacking an enemy"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Axes"
+  "6":
+    material: ENCHANTED_BOOK
+    name: "&eIce Breaker"
+    lore:
+      - "&7Instantly break ice"
+      - ""
+      - "&fMax level: &b1"
+      - "&fApplicable to:"
+      - "&b Pickaxes"
+  "7":
+    material: ENCHANTED_BOOK
+    name: "&eIndestructible"
+    lore:
+      - "&7Increases item durability"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Helmets"
+  "8":
+    material: ENCHANTED_BOOK
+    name: "&eInfected"
+    lore:
+      - "&7Stop your enemy bow boosting"
+      - "&7or e-pearling for 10s"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Swords"
+  "9":
+    material: ENCHANTED_BOOK
+    name: "&eInfusion"
+    lore:
+      - "&7Break a 3x3 area infront of you"
+      - ""
+      - "&fMax level: &b4"
+      - "&fApplicable to:"
+      - "&b Shovels"
+      - "&b Pickaxes"
+  "a":
+    material: ENCHANTED_BOOK
+    name: "&eLeaps"
+    lore:
+      - "&7Provides jump boost"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Boots"
+  "b":
+    material: ENCHANTED_BOOK
+    name: "&eMob Hunter"
+    lore:
+      - "&7Slightly increases mob coins you earn"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Swords"
+  "c":
+    material: ENCHANTED_BOOK
+    name: "&eObsidian Destroyer"
+    lore:
+      - "&7Increases the mining speed for obsidian blocks"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Pickaxes"
+  "d":
+    material: ENCHANTED_BOOK
+    name: "&eRampage"
+    lore:
+      - "&7Strength III and Speed III"
+      - "&7after killing an enemy who is"
+      - "&7wearing a piece of diamond armor"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Swords"
+  "e":
+    material: ENCHANTED_BOOK
+    name: "&eReborn"
+    lore:
+      - "&7Chance to restore all hearts"
+      - "&7when you are at low health"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Leggings"
+      - "&b Chestplates"
+      - "&b Boots"
+      - "&b Helmets"
+  "f":
+    material: ENCHANTED_BOOK
+    name: "&eScoot"
+    lore:
+      - "&7Provides infinite speed"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Boots"
+  "g":
+    material: ENCHANTED_BOOK
+    name: "&eShield"
+    lore:
+      - "&7Resistance I for 10 seconds"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Swords"
+  "h":
+    material: ENCHANTED_BOOK
+    name: "&eTank"
+    lore:
+      - "&7Increases damage dealt with each"
+      - "&7consecutive hit (combo) on"
+      - "&7you opponents. Must be"
+      - "&7applied to two armor pieces"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Leggings"
+      - "&b Chestplates"
+  "i":
+    material: ENCHANTED_BOOK
+    name: "&eTrapped"
+    lore:
+      - "&7Chance to trap your opponent"
+      - "&7inside a cage for a true 1v1!"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Swords"
+  "j":
+    material: ENCHANTED_BOOK
+    name: "&eTurtle"
+    lore:
+      - "&7Chance to inflict your"
+      - "&7enemies with Slowness"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Axes"
+  "k":
+    material: ENCHANTED_BOOK
+    name: "&eVenom"
+    lore:
+      - "&7Chance to poison your enemies when you"
+      - "&7hit them with a fully charged arrow"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Bows"
+  "l":
+    material: ENCHANTED_BOOK
+    name: "&eWeb Shooter"
+    lore:
+      - "&7Chance to encase your enemies"
+      - "&7in sticky webs when you hit them"
+      - "&7with a fully charged arrow"
+      - ""
+      - "&fMax level: &b3"
+      - "&fApplicable to:"
+      - "&b Bows"

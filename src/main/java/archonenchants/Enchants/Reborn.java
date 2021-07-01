@@ -1,7 +1,6 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -15,8 +14,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Reborn extends Enchantment implements Listener {
-    public Reborn(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    //works
+    public Reborn(int key) {
+        super(key);
     }
 
     @Override
@@ -40,23 +40,17 @@ public class Reborn extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("HELMET") || item.getType().toString().endsWith("CHESTPLATE") || item.getType().toString().endsWith("LEGGINGS") || item.getType().toString().endsWith("BOOTS")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @EventHandler
@@ -65,8 +59,9 @@ public class Reborn extends Enchantment implements Listener {
         Player p = (Player) e.getEntity();
         Player damager = (Player) e.getDamager();
         for(ItemStack i : Main.getArmor(p)) {
-            if(i.containsEnchantment(this)) {
-                if(new Random().nextInt(100) <= 20 * i.getEnchantmentLevel(this)) {
+            if(i == null) continue;
+            if(Main.hasEnchantment(i, this)) {
+                if(new Random().nextInt(100) <= 20 * Main.getLevel(i, this)) {
                     p.setHealth(20);
                 }
             }

@@ -1,7 +1,6 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -13,8 +12,11 @@ import org.bukkit.inventory.ItemStack;
 import javax.naming.Name;
 
 public class Feast extends Enchantment implements Listener {
-    public Feast(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+
+    //Completed
+
+    public Feast(int key) {
+        super(key);
     }
 
     @Override
@@ -38,23 +40,16 @@ public class Feast extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("HELMET") || item.getType().toString().endsWith("CHESTPLATE") || item.getType().toString().endsWith("LEGGINGS") || item.getType().toString().endsWith("BOOTS")) {            return true;
+        } else {
+            return false;
+        }
     }
 
     @EventHandler
@@ -62,7 +57,7 @@ public class Feast extends Enchantment implements Listener {
         Player p = (Player) e.getEntity();
         for(ItemStack s : Main.getArmor(p)) {
             if(s == null) continue;
-            if(s.containsEnchantment(this)) {
+            if(Main.hasEnchantment(s, this)) {
                 e.setCancelled(true);
             }
         }

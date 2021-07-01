@@ -1,7 +1,6 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -15,8 +14,8 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Random;
 
 public class Shield extends Enchantment implements Listener {
-    public Shield(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    public Shield(int key) {
+        super(key);
     }
 
     @Override
@@ -40,32 +39,26 @@ public class Shield extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("SWORDS")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @EventHandler
     public void onhit(EntityDamageByEntityEvent e) {
         if(!(e.getDamager() instanceof Player) || !(e.getEntity() instanceof Player)) return;
         Player p = (Player) e.getDamager();
-        if(p.getInventory().getItemInMainHand().containsEnchantment(this)) {
-            if(new Random().nextInt(100) <= 20 * p.getInventory().getItemInMainHand().getEnchantmentLevel(this)) {
-                p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 10, 1));
+        if(Main.hasEnchantment(p.getInventory().getItemInHand(), this)) {
+            if(new Random().nextInt(100) <= 20 * Main.getLevel(p.getInventory().getItemInHand(), this)) {
+                p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 200, 0));
             }
         }
     }

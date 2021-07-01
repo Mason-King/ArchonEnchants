@@ -1,7 +1,6 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -14,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Tank extends Enchantment implements Listener {
-    public Tank(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    public Tank(int key) {
+        super(key);
     }
 
     @Override
@@ -39,23 +38,17 @@ public class Tank extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("LEGGINGS") || item.getType().toString().endsWith("CHESTPLATE")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private HashMap<Player, Integer> combos = new HashMap<>();
@@ -67,11 +60,12 @@ public class Tank extends Enchantment implements Listener {
         Player damaged = (Player) e.getEntity();
         int i = 0;
         for(ItemStack it : Main.getArmor(p)) {
-            if(it.containsEnchantment(this)) {
+            if(it == null) continue;
+            if(Main.hasEnchantment(it, this)) {
                 i++;
             }
         }
-        if(i >=2 ) {
+        if(i >= 2) {
             if(combos.containsKey(damaged)) {
                 combos.remove(damaged);
             }
@@ -80,6 +74,7 @@ public class Tank extends Enchantment implements Listener {
             } else {
                 int num = combos.get(p) + 1;
                 combos.replace(p, num);
+                e.setDamage(e.getDamage() + (combos.get(p) / 1.5));
             }
         }
     }

@@ -1,7 +1,7 @@
 package archonenchants.Enchants;
 
 import archonenchants.Main;
-import org.bukkit.NamespacedKey;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
@@ -15,13 +15,14 @@ import javax.naming.Name;
 import java.util.HashMap;
 
 public class DeathGrip extends Enchantment implements Listener {
-    public DeathGrip(String key) {
-        super(new NamespacedKey(Main.getInstance(), key));
+    //Completed
+    public DeathGrip(int key) {
+        super(key);
     }
 
     @Override
     public String getName() {
-        return "Death Grip";
+        return "DeathGrip";
     }
 
     public String getDescription() {
@@ -44,23 +45,17 @@ public class DeathGrip extends Enchantment implements Listener {
     }
 
     @Override
-    public boolean isTreasure() {
-        return false;
-    }
-
-    @Override
-    public boolean isCursed() {
-        return false;
-    }
-
-    @Override
     public boolean conflictsWith(Enchantment other) {
         return false;
     }
 
     @Override
     public boolean canEnchantItem(ItemStack item) {
-        return false;
+        if(item.getType().toString().endsWith("SWORD")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private HashMap<Player, ItemStack> items = new HashMap<>();
@@ -70,8 +65,9 @@ public class DeathGrip extends Enchantment implements Listener {
         Player p = (Player) e.getEntity();
         ItemStack[] inv = p.getInventory().getContents();
         for(ItemStack is : inv) {
+            if(is == null || is.getType().equals(Material.AIR)) continue;
             if(is.getType().name().endsWith("_SWORD")) {
-                if(is.containsEnchantment(this)) {
+                if(Main.hasEnchantment(is, this)) {
                     e.getDrops().remove(is);
                     items.put(p, is);
                 }
